@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
               : 'text-neutral-400 hover:text-white'
           }`}
         >
-          bin
+          archives
           {currentTab === 'bin' && (
             <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-white rounded-full" />
           )}
