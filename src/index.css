@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: 'Balfontheim';
+  src: url('/fonts/balfontheim_font.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-amsham: 'Balfontheim', 'Alex Brush', 'Caveat', cursive;
+  }
+
+  body {
+    font-family: var(--font-inter);
+    letter-spacing: -0.04em;
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.14;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.55'/%3E%3C/svg%3E");
+  }
+
+  h1, h2, h3, h4, h5, h6, p, button, input, textarea {
+    letter-spacing: -0.04em;
+  }
+}
+
+.font-amsham {
+  font-family: var(--font-amsham);
+  letter-spacing: 0.01em;
+}
+
+.tracking-reduced {
+  letter-spacing: -0.05em;
+}
+
+.tracking-ultra-tight {
+  letter-spacing: -0.06em;
+}
+
+/* Cinematic lighting background matching reference screenshots */
+.ambient-lighting {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(50, 230, 216, 0.12) 0%, rgba(50, 230, 216, 0.02) 32%, transparent 60%),
+    radial-gradient(circle at 8% 92%, rgba(50, 230, 216, 0.1) 0%, rgba(50, 230, 216, 0.01) 35%, transparent 65%),
+    radial-gradient(ellipse 60% 28% at 50% 90%, rgba(255, 255, 255, 0.045) 0%, transparent 70%),
+    #000000;
+}
+
+.ambient-lighting-subtle {
+  background:
+    radial-gradient(ellipse 55% 25% at 50% 88%, rgba(255, 255, 255, 0.05) 0%, transparent 75%),
+    radial-gradient(circle at 95% 5%, rgba(50, 230, 216, 0.08) 0%, transparent 40%),
+    #000000;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
