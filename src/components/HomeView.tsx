@@ -143,8 +143,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <div className="w-full max-w-3xl text-center space-y-6 sm:space-y-8 z-10 pt-2 sm:pt-6">
         <h2 className="text-xl sm:text-2xl md:text-3xl text-white font-light tracking-reduced leading-snug sm:leading-relaxed">
           “Some words are easier to write{' '}
-          <span className="font-inter text-[#32E6D8] font-normal tracking-normal">
-  when they don’t have to be sent.</span>”
+          <span className="hero-accent font-inter text-[#32E6D8] font-normal tracking-normal">
+            when they don’t have to be sent.
+          </span>”
         </h2>
 
         {/* Recipient-name search bar matching reference screenshot 3 */}

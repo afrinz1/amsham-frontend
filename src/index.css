@@ -118,6 +118,10 @@
   color: #252b27 !important;
 }
 
+.theme-light .hero-accent {
+  color: #000000 !important;
+}
+
 .theme-light .text-neutral-50,
 .theme-light .text-neutral-900,
 .theme-light .text-neutral-950 {
