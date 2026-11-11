@@ -182,7 +182,7 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center justify-center rounded-full bg-black px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-70"
+                className="theme-keep-contrast inline-flex items-center justify-center rounded-full bg-black px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Send'}
               </button>

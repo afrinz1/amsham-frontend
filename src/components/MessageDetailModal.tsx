@@ -71,7 +71,7 @@ export const MessageDetailModal: React.FC<MessageDetailModalProps> = ({
 
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-3 py-1 bg-black text-white text-xs font-medium rounded hover:bg-neutral-800 transition-colors"
+            className="theme-keep-contrast flex items-center gap-1.5 px-3 py-1 bg-black text-white text-xs font-medium rounded hover:bg-neutral-800 transition-colors"
           >
             {copied ? (
               <>

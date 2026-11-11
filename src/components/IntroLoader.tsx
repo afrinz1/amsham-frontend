@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from 'motion/react';
 
 interface IntroLoaderProps {
   onComplete: () => void;
+  isLightMode: boolean;
 }
 
-export const IntroLoader: React.FC<IntroLoaderProps> = ({ onComplete }) => {
+export const IntroLoader: React.FC<IntroLoaderProps> = ({ onComplete, isLightMode }) => {
   // Phase 1 = Image 1, Phase 2 = Image 2, Phase 3 = complete/Home
   const [phase, setPhase] = useState<1 | 2>(1);
 
@@ -32,12 +33,12 @@ export const IntroLoader: React.FC<IntroLoaderProps> = ({ onComplete }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed inset-0 z-50 bg-black flex items-center justify-center select-none overflow-hidden"
+      className={`fixed inset-0 z-50 flex items-center justify-center select-none overflow-hidden ${isLightMode ? 'bg-[#f7f6f0]' : 'bg-black'}`}
     >
       {/* Skip button for accessibility */}
       <button
         onClick={onComplete}
-        className="absolute top-6 right-6 z-50 text-neutral-500 hover:text-white text-xs tracking-wider uppercase transition-colors px-3 py-1.5 rounded border border-neutral-800 hover:border-neutral-600 bg-black/40 backdrop-blur"
+        className="absolute top-6 right-6 z-50 text-neutral-500 hover:text-white text-xs tracking-wider uppercase transition-colors px-3 py-1.5 rounded border border-neutral-800 hover:border-neutral-600 bg-neutral-900/40 backdrop-blur"
       >
         Skip intro
       </button>
@@ -101,7 +102,7 @@ export const IntroLoader: React.FC<IntroLoaderProps> = ({ onComplete }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full h-full flex items-center justify-center bg-black"
+            className={`relative w-full h-full flex items-center justify-center ${isLightMode ? 'bg-[#f7f6f0]' : 'bg-black'}`}
           >
             {/* Pure minimalist dark background matching Image 2 */}
             <motion.div

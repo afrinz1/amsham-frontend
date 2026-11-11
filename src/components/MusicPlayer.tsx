@@ -227,7 +227,7 @@ export const MusicPlayer: React.FC = () => {
         </div>
 
         {showTimeTooltip && (
-          <div className="pointer-events-none absolute -top-6 right-2 rounded border border-neutral-800/60 bg-black/90 px-1.5 py-0.5 font-mono text-[9px] tabular-nums tracking-reduced text-neutral-400">
+          <div className="theme-tooltip pointer-events-none absolute -top-6 right-2 rounded border border-neutral-800/60 bg-black/90 px-1.5 py-0.5 font-mono text-[9px] tabular-nums tracking-reduced text-neutral-400">
             {formatTime(currentTime)} / {formatTime(duration)}
           </div>
         )}

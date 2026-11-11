@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Header } from './components/Header';
 import { HomeView } from './components/HomeView';
@@ -25,6 +25,13 @@ export default function App() {
   const [serverConfigOpen, setServerConfigOpen] = useState<boolean>(false);
   const [creatorMenuOpen, setCreatorMenuOpen] = useState<boolean>(false);
   const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
+  const [isLightMode, setIsLightMode] = useState(
+    () => window.localStorage.getItem('unsent-theme') === 'light',
+  );
+
+  useEffect(() => {
+    window.localStorage.setItem('unsent-theme', isLightMode ? 'light' : 'dark');
+  }, [isLightMode]);
 
   const handleIntroComplete = useCallback(() => {
     setShowIntro(false);
@@ -48,9 +55,9 @@ export default function App() {
   };
 
   return (
-    <div className="relative isolate min-h-screen bg-black text-white flex flex-col font-sans ambient-lighting overflow-x-hidden selection:bg-[#32E6D8] selection:text-black">
+    <div className={`theme-transition relative isolate min-h-screen bg-black text-white flex flex-col font-sans ambient-lighting overflow-x-hidden selection:bg-[#32E6D8] selection:text-black${isLightMode ? ' theme-light' : ''}`}>
       <video
-        className="absolute inset-0 z-0 h-full w-full object-cover"
+        className={`absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-700${isLightMode ? ' opacity-40' : ' opacity-100'}`}
         autoPlay
         muted
         loop
@@ -60,11 +67,11 @@ export default function App() {
       >
         <source src="/assets/ui/bg_video.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 z-0 bg-black/65 pointer-events-none" />
+      <div className={`absolute inset-0 z-0 pointer-events-none transition-colors duration-700 ${isLightMode ? 'bg-[#f7f6f0]/30' : 'bg-black/65'}`} />
 
       {/* Intro Loading Animation: 1_c95e78ef -> 2_ab900275 -> 3_dab783e1 */}
       <AnimatePresence>
-        {showIntro && <IntroLoader key="intro" onComplete={handleIntroComplete} />}
+        {showIntro && <IntroLoader key="intro" onComplete={handleIntroComplete} isLightMode={isLightMode} />}
       </AnimatePresence>
 
       {/* Top Header Bar */}
@@ -83,7 +90,8 @@ export default function App() {
         <Header
           currentTab={currentTab}
           onSelectTab={(tab) => setCurrentTab(tab)}
-          onOpenSubmit={() => setSubmitModalOpen(true)}
+          isLightMode={isLightMode}
+          onToggleTheme={() => setIsLightMode((lightMode) => !lightMode)}
         />
       </motion.div>
 

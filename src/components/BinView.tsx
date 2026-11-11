@@ -171,7 +171,7 @@ export const BinView: React.FC<BinViewProps> = ({
           <button
             onClick={handleLoadMore}
             disabled={loadingMore}
-            className="group relative inline-flex items-center justify-center px-10 py-2 rounded-full bg-[#202328]/80 backdrop-blur-md border border-white/30 hover:border-[#32E6D8] transition-all duration-300 text-white text-sm font-normal tracking-tight focus:outline-none focus:ring-2 focus:ring-[#32E6D8]/50 disabled:opacity-50"
+            className="theme-action-button group relative inline-flex items-center justify-center px-10 py-2 rounded-full bg-[#202328]/80 backdrop-blur-md border border-white/30 hover:border-[#32E6D8] transition-all duration-300 text-white text-sm font-normal tracking-tight focus:outline-none focus:ring-2 focus:ring-[#32E6D8]/50 disabled:opacity-50"
           >
             {loadingMore ? (
               <span className="flex items-center gap-2">
