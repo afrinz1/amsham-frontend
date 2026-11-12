@@ -11,7 +11,7 @@ import { IntroLoader } from './components/IntroLoader';
 import { MusicPlayer } from './components/MusicPlayer';
 import { ServerConfigModal } from './components/ServerConfigModal';
 import { Message } from './types';
-import { Instagram, Linkedin, Settings } from 'lucide-react';
+import { Instagram, Linkedin, Settings, Volume2, VolumeX } from 'lucide-react';
 
 export default function App() {
   // Start with loading animation: Image 1 -> Image 2 -> Home page Image 3
@@ -28,10 +28,56 @@ export default function App() {
   const [isLightMode, setIsLightMode] = useState(
     () => window.localStorage.getItem('unsent-theme') === 'light',
   );
+  const [clickSoundsEnabled, setClickSoundsEnabled] = useState(
+    () => window.localStorage.getItem('unsent-click-sounds') !== 'false',
+  );
+  const clickAudioContextRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
     window.localStorage.setItem('unsent-theme', isLightMode ? 'light' : 'dark');
   }, [isLightMode]);
+
+  useEffect(() => {
+    window.localStorage.setItem('unsent-click-sounds', String(clickSoundsEnabled));
+  }, [clickSoundsEnabled]);
+
+  useEffect(() => {
+    if (!clickSoundsEnabled) return;
+
+    const playClickSound = () => {
+      if (!window.AudioContext) return;
+
+      const audioContext = clickAudioContextRef.current ?? new window.AudioContext();
+      clickAudioContextRef.current = audioContext;
+
+      const play = () => {
+        const now = audioContext.currentTime;
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(1150, now);
+        oscillator.frequency.exponentialRampToValueAtTime(650, now + 0.045);
+        gain.gain.setValueAtTime(0.016, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.045);
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+        oscillator.start(now);
+        oscillator.stop(now + 0.045);
+      };
+
+      if (audioContext.state === 'suspended') {
+        void audioContext.resume().then(play).catch((error: unknown) => {
+          console.error('Unable to start click sound:', error);
+        });
+      } else {
+        play();
+      }
+    };
+
+    document.addEventListener('click', playClickSound);
+    return () => document.removeEventListener('click', playClickSound);
+  }, [clickSoundsEnabled]);
 
   const handleIntroComplete = useCallback(() => {
     setShowIntro(false);
@@ -191,6 +237,20 @@ export default function App() {
                 Instagram
               </a>
             </div>
+            <div className="my-2 border-t border-neutral-800" />
+            <button
+              onClick={() => setClickSoundsEnabled((enabled) => !enabled)}
+              role="switch"
+              aria-checked={clickSoundsEnabled}
+              className="flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-xs text-neutral-300 transition-colors hover:bg-neutral-900"
+            >
+              <span>Click sounds</span>
+              <span className={`flex h-5 w-9 items-center rounded-full p-0.5 transition-colors ${clickSoundsEnabled ? 'bg-[#32E6D8]/70' : 'bg-neutral-700'}`}>
+                <span className={`flex h-4 w-4 items-center justify-center rounded-full bg-white text-black transition-transform ${clickSoundsEnabled ? 'translate-x-4' : 'translate-x-0'}`}>
+                  {clickSoundsEnabled ? <Volume2 className="h-2.5 w-2.5" /> : <VolumeX className="h-2.5 w-2.5" />}
+                </span>
+              </span>
+            </button>
             <div className="my-2 border-t border-neutral-800" />
             <button
               onClick={() => {
