@@ -12,6 +12,7 @@ import { MusicPlayer } from './components/MusicPlayer';
 import { ServerConfigModal } from './components/ServerConfigModal';
 import { Message } from './types';
 import { Instagram, Linkedin, Settings, Volume2, VolumeX } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   // Start with loading animation: Image 1 -> Image 2 -> Home page Image 3
@@ -273,6 +274,7 @@ export default function App() {
           <span>Creator</span>
         </button>
       </div>
+      <Analytics />
     </div>
   );
 }
